@@ -6,7 +6,7 @@ import {
   detectPlatform,
 } from './constants'
 import { parseHotkey } from './parse'
-import type { FormatDisplayOptions, ParsedHotkey } from './types'
+import type { FormatDisplayOptions, Hotkey, ParsedHotkey } from './types'
 
 /**
  * Converts a ParsedHotkey back to a hotkey string.
@@ -59,7 +59,7 @@ export function formatHotkey(parsed: ParsedHotkey): string {
  * ```
  */
 export function formatForDisplay(
-  hotkey: string | ParsedHotkey,
+  hotkey: Hotkey | (string & {}) | ParsedHotkey,
   options: FormatDisplayOptions = {},
 ): string {
   const platform = options.platform ?? detectPlatform()
@@ -125,7 +125,7 @@ function formatForStandard(parsed: ParsedHotkey): string {
  * @returns A formatted string with platform-appropriate labels
  */
 export function formatWithLabels(
-  hotkey: string | ParsedHotkey,
+  hotkey: Hotkey | (string & {}),
   platform: 'mac' | 'windows' | 'linux' = detectPlatform(),
 ): string {
   const parsed =

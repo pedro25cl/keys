@@ -5,7 +5,7 @@ import {
   normalizeKeyName,
   resolveModifier,
 } from './constants'
-import type { CanonicalModifier, ParsedHotkey } from './types'
+import type { CanonicalModifier, Hotkey, Key, ParsedHotkey } from './types'
 
 /**
  * Parses a hotkey string into its component parts.
@@ -22,7 +22,7 @@ import type { CanonicalModifier, ParsedHotkey } from './types'
  * ```
  */
 export function parseHotkey(
-  hotkey: string,
+  hotkey: Hotkey | (string & {}),
   platform: 'mac' | 'windows' | 'linux' = detectPlatform(),
 ): ParsedHotkey {
   const parts = hotkey.split('+')
@@ -89,7 +89,7 @@ export function parseHotkey(
  * ```
  */
 export function normalizeHotkey(
-  hotkey: string,
+  hotkey: Key | (string & {}),
   platform: 'mac' | 'windows' | 'linux' = detectPlatform(),
 ): string {
   const parsed = parseHotkey(hotkey, platform)

@@ -5,7 +5,7 @@ import {
   NUMBER_KEYS,
 } from './constants'
 import { parseHotkey } from './parse'
-import type { ValidationResult } from './types'
+import type { Hotkey, ValidationResult } from './types'
 
 /**
  * Validates a hotkey string and returns any warnings or errors.
@@ -34,7 +34,9 @@ import type { ValidationResult } from './types'
  * // { valid: false, warnings: [], errors: ['Hotkey cannot be empty'] }
  * ```
  */
-export function validateHotkey(hotkey: string): ValidationResult {
+export function validateHotkey(
+  hotkey: Hotkey | (string & {}),
+): ValidationResult {
   const warnings: Array<string> = []
   const errors: Array<string> = []
 
@@ -188,7 +190,7 @@ function isNumberKey(key: string): boolean {
  * assertValidHotkey('') // Throws Error: Invalid hotkey: Hotkey cannot be empty
  * ```
  */
-export function assertValidHotkey(hotkey: string): void {
+export function assertValidHotkey(hotkey: Hotkey | (string & {})): void {
   const result = validateHotkey(hotkey)
   if (!result.valid) {
     throw new Error(`Invalid hotkey '${hotkey}': ${result.errors.join(', ')}`)
@@ -209,7 +211,7 @@ export function assertValidHotkey(hotkey: string): void {
  * // Returns: true
  * ```
  */
-export function checkHotkey(hotkey: string): boolean {
+export function checkHotkey(hotkey: Hotkey | (string & {})): boolean {
   const result = validateHotkey(hotkey)
 
   if (result.errors.length > 0) {

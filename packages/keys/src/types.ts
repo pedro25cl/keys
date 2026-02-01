@@ -264,7 +264,7 @@ export type Hotkey =
  */
 export interface ParsedHotkey {
   /** The non-modifier key (e.g., 'S', 'Escape', 'F1', '/', '['). Can be any string for flexibility. */
-  key: Key & (string | {})
+  key: Key | (string & {})
   /** Whether the Control key is required */
   ctrl: boolean
   /** Whether the Shift key is required */

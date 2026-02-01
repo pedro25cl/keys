@@ -12,6 +12,7 @@ export type {
   FunctionKey,
   NavigationKey,
   EditingKey,
+  PunctuationKey,
   Key,
   HeldKey,
   // Hotkey types
@@ -44,6 +45,7 @@ export {
   FUNCTION_KEYS,
   NAVIGATION_KEYS,
   EDITING_KEYS,
+  PUNCTUATION_KEYS,
   ALL_KEYS,
   // Display constants
   MAC_MODIFIER_SYMBOLS,

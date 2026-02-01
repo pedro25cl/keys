@@ -118,14 +118,52 @@ export type EditingKey =
   | 'Delete'
 
 /**
+ * Punctuation keys commonly used in keyboard shortcuts.
+ * These are the literal characters as they appear in KeyboardEvent.key
+ * (layout-dependent, typically US keyboard layout).
+ */
+export type PunctuationKey =
+  | '/'
+  | '['
+  | ']'
+  | '\\'
+  | '='
+  | '-'
+  | ','
+  | '.'
+  | '`'
+
+/**
+ * Keys that don't change their value when Shift is pressed.
+ * These keys produce the same `KeyboardEvent.key` value whether Shift is held or not.
+ * 
+ * Excludes NumberKey (Shift+1 produces '!' on US layout) and PunctuationKey
+ * (Shift+',' produces '<' on US layout).
+ * 
+ * Used in hotkey type definitions to prevent layout-dependent issues when Shift
+ * is part of the modifier combination.
+ */
+type ShiftUnaffectedKey = LetterKey | EditingKey | NavigationKey | FunctionKey
+
+/**
+ * Keys whose value changes when Shift is pressed.
+ * These keys produce different `KeyboardEvent.key` values when Shift is held.
+ * 
+ * Examples:
+ * - NumberKey: Shift+1 → '!' (on US layout)
+ * - PunctuationKey: Shift+',' → '<' (on US layout)
+ * 
+ * These keys are excluded from Shift-based hotkey combinations to avoid
+ * layout-dependent behavior, but can be used with other modifiers (Control, Alt, Meta, Mod).
+ */
+type ShiftAffectedKey = NumberKey | PunctuationKey
+
+/**
  * All supported non-modifier keys.
  */
 export type Key =
-  | LetterKey
-  | NumberKey
-  | FunctionKey
-  | NavigationKey
-  | EditingKey
+  | ShiftUnaffectedKey
+  | ShiftAffectedKey
 
 /**
  * Keys that can be tracked as "held" (pressed down).
@@ -137,67 +175,57 @@ export type HeldKey = CanonicalModifier | Key
 // Hotkey Types
 // =============================================================================
 
-/**
- * Keys commonly used with hotkeys (letters and editing keys).
- * Used to limit type expansion for better TypeScript performance.
- */
-type CommonKey = LetterKey | EditingKey
+
 
 /**
  * Single modifier + key combinations.
  * Uses canonical modifiers (4) + Mod (1) = 5 modifiers.
- * 5 × 32 common keys = 160 combinations.
+ * Shift combinations exclude PunctuationKey to avoid layout-dependent issues.
  */
 type SingleModifierHotkey =
-  | `Control+${CommonKey}`
-  | `Alt+${CommonKey}`
-  | `Shift+${CommonKey}`
-  | `Meta+${CommonKey}`
-  | `Mod+${CommonKey}`
+  | `Control+${Key}`
+  | `Alt+${Key}`
+  | `Shift+${ShiftUnaffectedKey}`
+  | `Meta+${Key}`
+  | `Mod+${Key}`
+
+
 
 /**
- * Two modifier combinations in canonical order.
- * C(4,2) = 6 combinations + 4 Mod combinations = 10.
- * 10 × 32 common keys = 320 combinations.
+ * Two modifier + key combinations.
+ * Shift combinations exclude PunctuationKey to avoid layout-dependent issues.
  */
-type TwoModifierCombo =
-  | 'Control+Alt'
-  | 'Control+Shift'
-  | 'Control+Meta'
-  | 'Alt+Shift'
-  | 'Alt+Meta'
-  | 'Shift+Meta'
-  // Mod combinations (most common cross-platform)
-  | 'Mod+Alt'
-  | 'Mod+Shift'
-  | 'Mod+Control'
-  | 'Mod+Meta'
-
-type TwoModifierHotkey = `${TwoModifierCombo}+${CommonKey}`
+type TwoModifierHotkey =
+  | `Control+Alt+${Key}`
+  | `Control+Shift+${ShiftUnaffectedKey}`
+  | `Control+Meta+${Key}`
+  | `Alt+Shift+${ShiftUnaffectedKey}`
+  | `Alt+Meta+${Key}`
+  | `Shift+Meta+${ShiftUnaffectedKey}`
+  | `Mod+Alt+${Key}`
+  | `Mod+Shift+${ShiftUnaffectedKey}`
+  | `Mod+Control+${Key}`
+  | `Mod+Meta+${Key}`
 
 /**
- * Three modifier combinations in canonical order.
- * C(4,3) = 4 combinations + 3 Mod combinations = 7.
- * 7 × 32 common keys = 224 combinations.
+ * Three modifier + key combinations.
+ * Shift combinations exclude PunctuationKey to avoid layout-dependent issues.
  */
-type ThreeModifierCombo =
-  | 'Control+Alt+Shift'
-  | 'Control+Alt+Meta'
-  | 'Control+Shift+Meta'
-  | 'Alt+Shift+Meta'
-  // Mod combinations
-  | 'Mod+Alt+Shift'
-  | 'Mod+Control+Shift'
-  | 'Mod+Shift+Meta'
-
-type ThreeModifierHotkey = `${ThreeModifierCombo}+${CommonKey}`
+type ThreeModifierHotkey =
+  | `Control+Alt+Shift+${ShiftUnaffectedKey}`
+  | `Control+Alt+Meta+${Key}`
+  | `Control+Shift+Meta+${ShiftUnaffectedKey}`
+  | `Alt+Shift+Meta+${ShiftUnaffectedKey}`
+  | `Mod+Alt+Shift+${ShiftUnaffectedKey}`
+  | `Mod+Control+Shift+${ShiftUnaffectedKey}`
+  | `Mod+Shift+Meta+${ShiftUnaffectedKey}`
 
 /**
  * A type-safe hotkey string.
  *
  * Provides autocomplete for:
- * - All single keys (letters, numbers, function keys, navigation, editing)
- * - Single modifier + common key (Control+S, Mod+A, etc.)
+ * - All single keys (letters, numbers, function keys, navigation, editing, punctuation)
+ * - Single modifier + common key (Control+S, Mod+A, Mod+/, etc.)
  * - Two modifiers + common key (Mod+Shift+S, Control+Alt+A, etc.)
  * - Three modifiers + common key (Control+Alt+Shift+A, etc.)
  *
@@ -212,6 +240,8 @@ type ThreeModifierHotkey = `${ThreeModifierCombo}+${CommonKey}`
  * const save: Hotkey = 'Mod+S'           // ✓ Cross-platform save
  * const saveAs: Hotkey = 'Mod+Shift+S'   // ✓ Cross-platform save as
  * const macOnly: Hotkey = 'Meta+S'       // ✓ Command+S on Mac only
+ * const comment: Hotkey = 'Mod+/'       // ✓ Toggle comment
+ * const indent: Hotkey = 'Mod+]'        // ✓ Indent
  * ```
  */
 export type Hotkey =
@@ -222,10 +252,25 @@ export type Hotkey =
 
 /**
  * A parsed representation of a hotkey string.
+ * 
+ * This interface provides a flexible fallback when the `Hotkey` type doesn't
+ * fit your use case. You can pass a `ParsedHotkey` directly to hotkey functions
+ * instead of a hotkey string, allowing for more dynamic or complex scenarios
+ * that aren't covered by the type-safe `Hotkey` union.
+ * 
+ * @example
+ * ```ts
+ * // Type-safe hotkey string
+ * useHotkey('Mod+S', handler)
+ * 
+ * // Fallback: parsed hotkey for dynamic scenarios
+ * const parsed = parseHotkey(userInput)
+ * useHotkey(parsed, handler) // Works even if userInput isn't in Hotkey type
+ * ```
  */
 export interface ParsedHotkey {
-  /** The non-modifier key (e.g., 'S', 'Escape', 'F1') */
-  key: string
+  /** The non-modifier key (e.g., 'S', 'Escape', 'F1', '/', '['). Can be any string for flexibility. */
+  key: Key & (string | {})
   /** Whether the Control key is required */
   ctrl: boolean
   /** Whether the Shift key is required */
@@ -234,7 +279,7 @@ export interface ParsedHotkey {
   alt: boolean
   /** Whether the Meta (Command) key is required */
   meta: boolean
-  /** List of canonical modifier names that are required */
+  /** List of canonical modifier names that are required, in canonical order */
   modifiers: Array<CanonicalModifier>
 }
 

